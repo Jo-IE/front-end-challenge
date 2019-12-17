@@ -1,0 +1,13 @@
+import ReactDOM from 'react-dom'
+import React from 'react'
+
+import './styles/semanticoverrides.css'
+import './styles/device-spinner.css'
+
+import App from './App'
+
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('app')
+)
