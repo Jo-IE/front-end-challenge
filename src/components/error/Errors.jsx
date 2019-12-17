@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Header } from 'semantic-ui-react';
 
 class Errors extends Component {
   render() {
-    return <div></div>;
+    return <Header as="h1">404</Header>;
   }
 }
 
