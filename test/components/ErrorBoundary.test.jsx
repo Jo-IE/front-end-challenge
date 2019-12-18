@@ -1,5 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, getByAltText } from '@testing-library/react';
+import { Header } from 'semantic-ui-react';
+
 import { ServerAPI as mockServer } from '../../src/utils/ServerAPI';
 import ErrorBoundary from '../../src/components/error/ErrorBoundary';
 
@@ -17,7 +19,9 @@ function MockError({ shouldThrow }) {
   }
 }
 
-test('calls reportError function and renders generic error component', () => {
+const NoErrorView = () => <Header>No Error here!</Header>;
+
+test('calls reportError function and renders error messages', () => {
   mockServer.reportError.mockResolvedValueOnce({ success: true });
   const { rerender, getByText } = render(
     <ErrorBoundary>
@@ -45,4 +49,17 @@ beforeEach(() => {
 
 afterEach(() => {
   console.error.mockRestore();
+});
+
+describe('no error', () => {
+  test('render component if there is no error', () => {
+    const { getByText } = render(
+      <ErrorBoundary>
+        <NoErrorView />
+      </ErrorBoundary>
+    );
+
+    expect(mockServer.reportError).toHaveBeenCalledTimes(0);
+    getByText('No Error here!');
+  });
 });
