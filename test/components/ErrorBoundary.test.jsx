@@ -19,7 +19,7 @@ function MockError({ shouldThrow }) {
 
 test('calls reportError function and renders generic error component', () => {
   mockServer.reportError.mockResolvedValueOnce({ success: true });
-  const { rerender } = render(
+  const { rerender, getByText } = render(
     <ErrorBoundary>
       <MockError />
     </ErrorBoundary>
@@ -35,6 +35,8 @@ test('calls reportError function and renders generic error component', () => {
   const info = { componentStack: expect.stringContaining('MockError') };
   expect(mockServer.reportError).toHaveBeenCalledWith(error, info);
   expect(mockServer.reportError).toHaveBeenCalledTimes(1);
+  getByText('Something went wrong');
+  getByText('Error: fake error');
 });
 
 beforeEach(() => {
