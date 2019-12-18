@@ -8,23 +8,26 @@ import Changelog from 'components/changelog/Changelog';
 import Profile from 'components/profile/Profile';
 import Notifications from 'components/notifications/Notifications';
 import Errors from 'components/error/Errors';
+import ErrorBoundary from 'components/error/ErrorBoundary';
 
 const Main = () => (
   <div>
     <BrowserRouter forceRefresh={false}>
-      <OspinSidebar />
+      <ErrorBoundary>
+        <OspinSidebar />
 
-      <Container fluid className="main-content">
-        <Switch>
-          <Route exact path="/" component={Devices} />
-          <Route path="/devices" component={Devices} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/notifications" component={Notifications} />
-          <Route path="/changelog" component={Changelog} />
-          <Route path="/404" component={Errors}></Route>
-          <Redirect to="/404" />
-        </Switch>
-      </Container>
+        <Container fluid className="main-content">
+          <Switch>
+            <Route exact path="/" component={Devices} />
+            <Route path="/devices" component={Devices} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/notifications" component={Notifications} />
+            <Route path="/changelog" component={Changelog} />
+            <Route path="/error" component={Errors}></Route>
+            <Redirect to="/error" />
+          </Switch>
+        </Container>
+      </ErrorBoundary>
     </BrowserRouter>
   </div>
 );
