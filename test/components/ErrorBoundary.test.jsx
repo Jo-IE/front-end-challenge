@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, getByAltText } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Header } from 'semantic-ui-react';
-
 import { ServerAPI as mockServer } from '../../src/utils/ServerAPI';
 import ErrorBoundary from '../../src/components/error/ErrorBoundary';
+import { MemoryRouter } from 'react-router';
+import '@testing-library/jest-dom/extend-expect';
 
 jest.mock('../../src/utils/ServerAPI');
 
@@ -24,15 +25,19 @@ const NoErrorView = () => <Header>No Error here!</Header>;
 test('calls reportError function and renders error messages', () => {
   mockServer.reportError.mockResolvedValueOnce({ success: true });
   const { rerender, getByText } = render(
-    <ErrorBoundary>
-      <MockError />
-    </ErrorBoundary>
+    <MemoryRouter>
+      <ErrorBoundary>
+        <MockError />
+      </ErrorBoundary>
+    </MemoryRouter>
   );
 
   rerender(
-    <ErrorBoundary>
-      <MockError shouldThrow={true} />
-    </ErrorBoundary>
+    <MemoryRouter>
+      <ErrorBoundary>
+        <MockError shouldThrow={true} />
+      </ErrorBoundary>
+    </MemoryRouter>
   );
 
   const error = expect.any(Error);
@@ -41,6 +46,21 @@ test('calls reportError function and renders error messages', () => {
   expect(mockServer.reportError).toHaveBeenCalledTimes(1);
   getByText('Something went wrong');
   getByText('Error: fake error');
+  getByText('View Error');
+  getByText('View stack trace');
+});
+
+test('render component if there is no error', () => {
+  const { getByText } = render(
+    <MemoryRouter>
+      <ErrorBoundary>
+        <NoErrorView />
+      </ErrorBoundary>
+    </MemoryRouter>
+  );
+
+  expect(mockServer.reportError).toHaveBeenCalledTimes(0);
+  getByText('No Error here!');
 });
 
 beforeEach(() => {
@@ -49,17 +69,4 @@ beforeEach(() => {
 
 afterEach(() => {
   console.error.mockRestore();
-});
-
-describe('no error', () => {
-  test('render component if there is no error', () => {
-    const { getByText } = render(
-      <ErrorBoundary>
-        <NoErrorView />
-      </ErrorBoundary>
-    );
-
-    expect(mockServer.reportError).toHaveBeenCalledTimes(0);
-    getByText('No Error here!');
-  });
 });

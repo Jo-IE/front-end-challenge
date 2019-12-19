@@ -1,23 +1,27 @@
-import React from 'react'
-import { Loader } from 'semantic-ui-react'
+import React from 'react';
+import { Loader } from 'semantic-ui-react';
 
-import Main from 'components/main/Main'
+import Main from 'components/main/Main';
+import { BrowserRouter } from 'react-router-dom';
 
 class App extends React.Component {
-
-  state = { authenticated: false }
+  state = { authenticated: false };
 
   componentDidMount() {
-    setTimeout(() => this.setState({ authenticated: true }), 300)
+    setTimeout(() => this.setState({ authenticated: true }), 300);
   }
 
   render() {
-    const { authenticated } = this.state
+    const { authenticated } = this.state;
 
-    return (
-      authenticated ? <Main /> : <Loader active size='big' />
-    )
+    return authenticated ? (
+      <BrowserRouter forceRefresh={false}>
+        <Main />
+      </BrowserRouter>
+    ) : (
+      <Loader active size="big" />
+    );
   }
 }
 
-export default App
+export default App;

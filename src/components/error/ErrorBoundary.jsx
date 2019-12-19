@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { ServerAPI } from '../../utils/ServerAPI';
+import { withRouter } from 'react-router-dom';
+import ErrorView from './ErrorView';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -21,18 +23,25 @@ class ErrorBoundary extends React.Component {
     });
     ServerAPI.reportError(error, info);
   }
+  componentDidMount() {
+    this.unlisten = this.props.history.listen((location, action) => {
+      if (this.state.hasError) {
+        this.setState({ hasError: false });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
+  }
 
   render() {
     return this.state.hasError ? (
-      <div>
-        <p>Something went wrong</p>
-        <p>{this.state.error.toString()}</p>
-        <p>{this.state.info.componentStack}</p>{' '}
-      </div>
+      <ErrorView error={this.state.error} info={this.state.info} />
     ) : (
       this.props.children
     );
   }
 }
 
-export default ErrorBoundary;
+export default withRouter(ErrorBoundary);
