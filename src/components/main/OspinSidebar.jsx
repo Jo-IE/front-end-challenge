@@ -1,79 +1,83 @@
-import React from 'react'
-import { Container, Sidebar, Menu, Icon, Image, Divider } from 'semantic-ui-react'
-import { withRouter } from 'react-router-dom'
-
-import logoIcon from 'images/logoIcon.png'
-
+import React from 'react';
+import {
+  Container,
+  Sidebar,
+  Menu,
+  Icon,
+  Image,
+  Divider
+} from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+import logoIcon from 'images/logoIcon.png';
 
 class OspinSidebar extends React.Component {
-
   getCurrentTabFromUrl() {
-    const { location: { pathname } } = this.props
-    const activeTab = pathname.substr(1)
-    return activeTab || ''
+    const {
+      location: { pathname }
+    } = this.props;
+    const activeTab = pathname.substr(1);
+    return activeTab || '';
   }
 
   changeMenuTabHandler = tab => {
-    const { history } = this.props
-    history.push(`/${tab}`)
-  }
+    const { history } = this.props;
+    history.push(`/${tab}`);
+  };
 
   render() {
-    const activeTab = this.getCurrentTabFromUrl()
+    const activeTab = this.getCurrentTabFromUrl();
 
     return (
       <Container>
-        <Sidebar as={Menu} visible vertical className='medium with-margin-r'>
-
+        <Sidebar as={Menu} visible vertical className="medium with-margin-r">
           <Divider hidden />
-          <Image src={logoIcon} centered />
+          <Image src={logoIcon} centered alt="OSPIN logo" />
           <Divider hidden />
 
           <Menu.Item
             active={activeTab === 'devices'}
             onClick={() => this.changeMenuTabHandler('devices')}
-            as='a'
+            as="a"
           >
-            <Icon name='hdd' />
+            <Icon name="hdd" />
             Devices
           </Menu.Item>
 
           <Menu.Item
             active={activeTab === 'profile'}
             onClick={() => this.changeMenuTabHandler('profile')}
-            as='a'
+            as="a"
           >
-            <Icon name='user' />
+            <Icon name="user" />
             Profile
           </Menu.Item>
 
           <Menu.Item
             active={activeTab === 'notifications'}
             onClick={() => this.changeMenuTabHandler('notifications')}
-            as='a'
+            as="a"
           >
-            <Icon name='bell' color='red' />
+            <Icon name="bell" color="red" />
             Notifications
           </Menu.Item>
 
           <Menu.Item
             active={activeTab === 'changelog'}
             onClick={() => this.changeMenuTabHandler('changelog')}
-            as='a'
+            as="a"
           >
-            <Icon name='question circle' color='red' />
+            <Icon name="question circle" color="red" />
             Changelog
           </Menu.Item>
 
-          <Menu.Item as='a'>
-            <Icon name='log out' />
+          <Menu.Item as="a">
+            <Icon name="log out" />
             Logout
           </Menu.Item>
-
         </Sidebar>
       </Container>
-    )
+    );
   }
 }
 
-export default withRouter(OspinSidebar)
+export default withRouter(OspinSidebar);

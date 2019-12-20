@@ -4,10 +4,11 @@ import {
   Segment,
   Button,
   Container,
-  Grid,
   Image,
   Accordion,
-  Icon
+  Icon,
+  Input,
+  Message
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import OOPSIN from 'images/OOPSIN.png';
@@ -16,7 +17,7 @@ class ErrorView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeIndex: 0
+      activeIndex: -1
     };
   }
 
@@ -35,27 +36,38 @@ class ErrorView extends Component {
         <Segment.Group piled>
           {this.props.error != null ? (
             <Segment clearing>
-              <Image src={OOPSIN} size="tiny" centered />
-              <Header as="h1" style={{ textAlign: 'center' }}>
+              <Image
+                src={OOPSIN}
+                size="small"
+                centered={true}
+                alt="OSPIN logo that reads 500 OOPSIN"
+              />
+              <Header
+                as="h1"
+                style={{
+                  textAlign: 'center',
+                  color: '#900E2C',
+                  paddingTop: '5vh'
+                }}
+              >
                 Something went wrong
               </Header>
 
               <Header
-                as="h2"
+                as="h3"
                 style={{
                   textAlign: 'center',
-                  paddingTop: '5px',
                   color: '#AEB2BA'
                 }}
               >
                 ... And it's probably our fault.
               </Header>
+
               <Accordion
                 style={{
                   textAlign: 'center',
                   paddingTop: '10vh',
-                  color: '#AEB2BA',
-                  fontSize: '1rem'
+                  color: '#AEB2BA'
                 }}
               >
                 <Accordion.Title
@@ -64,10 +76,10 @@ class ErrorView extends Component {
                   onClick={this.handleClick}
                 >
                   <Icon name="dropdown" />
-                  View Error
+                  View error
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 0}>
-                  <p>{this.props.error.toString()}</p>
+                  <Message negative content={this.props.error.toString()} />
                 </Accordion.Content>
 
                 <Accordion.Title
@@ -79,45 +91,48 @@ class ErrorView extends Component {
                   View stack trace
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 1}>
-                  <p>{this.props.info.componentStack}</p>
+                  <Message negative content={this.props.info.componentStack} />
                 </Accordion.Content>
               </Accordion>
             </Segment>
           ) : (
-            <Segment clearing style={{ height: '80vh', paddingTop: '20vh' }}>
-              <Grid columns={2} padded>
-                <Grid.Column>
-                  <Header
-                    as="h1"
-                    floated="left"
-                    style={{ fontSize: '9rem', marginLeft: '10vw' }}
-                  >
-                    404
-                  </Header>
-                </Grid.Column>
-                <Grid.Column>
-                  <Header
-                    as="h2"
-                    floated="right"
-                    style={{
-                      fontSize: '3rem',
-                      marginRight: '10vw',
-                      marginTop: '5vh',
-                      color: '#AEB2BA'
-                    }}
-                  >
-                    We couldn't find <br /> that page.
-                  </Header>
-                </Grid.Column>
-              </Grid>
+            <Segment
+              clearing
+              style={{
+                paddingTop: '10vh',
+                backgroundColor: '#900E2C',
+                textAlign: 'center'
+              }}
+            >
+              <Header
+                as="h1"
+                size="huge"
+                style={{ color: 'white', fontSize: '4rem' }}
+              >
+                404
+              </Header>
+
+              <Header
+                as="h2"
+                style={{
+                  color: '#AEB2BA'
+                }}
+              >
+                Couldn't find what you were looking for? <br />
+                Try searching our website.
+              </Header>
+              <Input
+                icon="search"
+                placeholder='e.g "bioprocessor"'
+                aria-label="Search"
+              />
             </Segment>
           )}
 
-          <Segment style={{ backgroundColor: '#900E2C', marginTop: '0em' }}>
+          <Segment style={{ backgroundColor: '#900E2C', padding: '5vh' }}>
             <Button
-              centered
+              centered="true"
               className="backbutton"
-              size="massive"
               onClick={() => this.props.history.push('/')}
               style={{ backgroundColor: '#ffff' }}
             >

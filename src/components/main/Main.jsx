@@ -12,7 +12,6 @@ import ErrorBoundary from 'components/error/ErrorBoundary';
 const Main = () => (
   <div>
     <OspinSidebar />
-
     <Container fluid className="main-content">
       <ErrorBoundary>
         <Switch>

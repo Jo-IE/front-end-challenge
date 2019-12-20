@@ -46,7 +46,7 @@ test('calls reportError function and renders error messages', () => {
   expect(mockServer.reportError).toHaveBeenCalledTimes(1);
   getByText('Something went wrong');
   getByText('Error: fake error');
-  getByText('View Error');
+  getByText('View error');
   getByText('View stack trace');
 });
 

@@ -28,19 +28,23 @@ describe('Error page', () => {
     const { getByText } = render404Error();
 
     getByText('404');
-    getByText(/We couldn't find that page/i);
+    getByText(/couldn't find what you were looking for?/i);
   });
   it('should contain unique error message on uncaught error', () => {
     const { getByText } = renderUncaughtError();
 
     getByText('Something went wrong');
-    getByText('testError');
-    getByText('View Error');
+    getByText('View error');
     getByText('View stack trace');
   });
   it('should display stack trace', async () => {
     const { getByText } = renderUncaughtError();
     fireEvent.click(getByText('View stack trace'));
     await waitForElement(() => getByText(/test/i));
+  });
+  it('should display error', async () => {
+    const { getByText } = renderUncaughtError();
+    fireEvent.click(getByText('View error'));
+    await waitForElement(() => getByText(/testError/i));
   });
 });

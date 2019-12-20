@@ -4,8 +4,17 @@ import { Container, Segment, Image } from 'semantic-ui-react';
 
 import bio_box_futurism from 'images/bio_box_futurism.jpg';
 
-function Profile() {
-  throw new TypeError('error');
-}
+const Profile = () => (
+  <Container>
+    <Segment>
+      <Image
+        src={bio_box_futurism}
+        size="large"
+        centered
+        style={{ paddingTop: '30px' }}
+      />
+    </Segment>
+  </Container>
+);
 
 export default withRouter(Profile);

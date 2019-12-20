@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ServerAPI } from '../../utils/ServerAPI';
 import { withRouter } from 'react-router-dom';
 import ErrorView from './ErrorView';
