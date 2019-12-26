@@ -45,7 +45,7 @@ describe('Main.jsx', () => {
       history.location.pathname = '/badroute';
       const { getByText } = render(
         <Router history={history}>
-          <Main />
+          <Main dispatch={jest.fn()} />
         </Router>
       );
       getByText('404');

@@ -118,6 +118,15 @@ class ErrorView extends Component {
                   color: '#AEB2BA'
                 }}
               >
+                Page Not Found
+              </Header>
+
+              <Header
+                as="h3"
+                style={{
+                  color: '#AEB2BA'
+                }}
+              >
                 Couldn't find what you were looking for? <br />
                 Try searching our website.
               </Header>
