@@ -72,7 +72,7 @@ When there is an uncaught error in one of the components, for example, a user vi
 ### Testing
 
 For testing, I used the React Testing Library as was used originally in the app. I thought the library was an ideal choice because it tests for user interactions with the app and it would be helpful to text for user navigation to and from the error page.
-The components in `Main.jsx` were previosuly wrapped by a `BrowserRouter` component. I moved this `BrowserRouter` component to the `App.jsx` file and used it as a wrapper over the `Main` component. I did this to make it easier to manipulate the `history` prop of the `Router` component that is used to wrap the `Main` component during testing. I tested the error components, `ErrorView` and `ErrorBoundary` to ensure that they were each individually performing as required. I tested the `ErrorView` with the `Main` component to ensure that the sidebar still shows up on an error page, the url changes to `/error` when there is a 404 error and the button back to the home page still functions.
+The components in `Main.jsx` were previosuly wrapped by a `BrowserRouter` component. I moved this `BrowserRouter` component to the `App.jsx` file and used it as a wrapper over the `Main` component. I did this to make it easier to manipulate the `history` prop of the `Router` component that is used to wrap the `Main` component during testing. I tested the error components, `ErrorView` and `ErrorBoundary` to ensure that they were each individually performing as required. I tested the `ErrorView` with the `Main` component to en sure that the sidebar still shows up on an error page, the url changes to `/error` when there is a 404 error and the button back to the home page still functions.
 
 ### UI
 
@@ -103,3 +103,12 @@ Another feature addition to this application would be the improvement of accessi
 #### Search Functionality on Error
 
 When there is a 404 error, it can be helpful for the user to search the website to try to find what they were looking for. I added a search bar to the 404 error page however, the search bar does not currently work because the app only consists of the frontend. A possible extension would be to implement functionality to search the website and/or search Google.
+
+## To Install:
+
+There is no additional setup involved to run this app locally.
+
+1. Clone this repo (`git clone https://github.com/Jo-IE/front-end-challenge.git`).
+2. Install dependencies (`npm i`)
+3. Run the app (`npm start`)
+4. See all tests with coverage (`npm run test`)
